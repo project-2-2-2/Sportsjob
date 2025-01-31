@@ -3,8 +3,7 @@ import { useState } from "react";
 import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
 import { Loader } from "lucide-react";
-
-const LoginForm = () => {
+ const LoginForm = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const queryClient = useQueryClient();
@@ -42,8 +41,7 @@ const LoginForm = () => {
 				className='input input-bordered w-full'
 				required
 			/>
-
-			<button type='submit' className='btn btn-primary w-full'>
+		<button type='submit' className='btn btn-primary w-full'>
                 
 				{isLoading ? <Loader className='size-5 animate-spin' /> : "Login"}
 			</button>

@@ -7,7 +7,7 @@ const SignUpPage = () => {
 			<div className='sm:mx-auto sm:w-full sm:max-w-md'>
 				<img className='mx-auto h-36 w-auto' src='/logo.svg' alt='LinkedIn' />
 				<h2 className='text-center text-3xl font-extrabold text-gray-900'>
-					Make the most of your professional life
+					WELCOME TO SPORTS.IN
 				</h2>
 			</div>
 			<div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md shadow-md'>
