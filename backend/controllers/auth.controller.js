@@ -93,6 +93,7 @@ export const login=async(req,res)=>{
 		res.status(500).json({ message: "Server error" });
 	} 
 };
+
 export const logout=(req,res)=>{
     res.clearCookie("jwt-linkedin");
     res.json({ message: "Logged out successfully" });

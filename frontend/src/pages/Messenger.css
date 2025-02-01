@@ -1,0 +1,109 @@
+
+  
+  .messenger {
+    width: 30vw;
+    height: 80vh;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .chatBox {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  
+  .chatBoxTop {
+    margin-top: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+  }
+  
+  .msg {
+    max-width: 65%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+    position: relative;
+    transition: transform 0.2s, background 0.3s;
+  }
+  
+  /* Sent Messages */
+  .msg.sent {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #e3fdfd, #cbf1f5);
+    color: #333;
+    border-bottom-right-radius: 2px;
+  }
+  
+  /* Received Messages */
+  .msg.received {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #d4fc79, #96e6a1);
+    color: #222;
+    border-bottom-left-radius: 2px;
+  }
+  
+  .chatBoxBottom {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    border-radius: 12px;
+    gap: 8px;
+  }
+  
+  .chatMessage {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+    transition: 0.3s;
+  }
+  
+  
+  .chatMessage::placeholder {
+    color: rgba(9, 9, 9, 0.6);
+  }
+  
+  .chatMessage:hover,
+  .chatMessage:focus {
+      background: rgba(255, 255, 255, 0.7);
+      transform: scale(1.02);
+  }
+  
+  .chatSubmitButton {
+      background: linear-gradient(135deg, #43e97b, #38f9d7);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+  }
+  
+  /* Send Button Hover Effect */
+  .chatSubmitButton:hover {
+      background: linear-gradient(135deg, #38f9d7, #43e97b);
+      transform: scale(1.1);
+      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.3);
+  }
