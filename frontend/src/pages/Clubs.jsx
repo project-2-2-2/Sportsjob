@@ -5,7 +5,7 @@ import { UserPlus } from "lucide-react";
 import Connect from "../components/connect";
 import Best from "../components/Best.jsx";
 
-const NetworkPage = () => {
+const Clubs = () => {
 	const { data: user } = useQuery({ queryKey: ["authUser"] });
 
 	const { data: connectionRequests } = useQuery({
@@ -63,4 +63,4 @@ const NetworkPage = () => {
 		</div>
 	);
 };
-export default NetworkPage;
+export default Clubs;
