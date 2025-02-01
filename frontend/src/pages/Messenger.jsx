@@ -12,7 +12,7 @@ const Messenger = ({ user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [receiverId, setReceiverId] = useState(null);
-  const socket = useRef();S
+  const socket = useRef();
 
   useEffect(() => {
       socket.current = io("http://localhost:5000");
