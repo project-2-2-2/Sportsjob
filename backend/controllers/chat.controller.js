@@ -29,10 +29,10 @@ export const getMessages = async (req, res) => {
 };
 
 export const sendMessage = async (req, res) => {
-  const { sender, receiver, text } = req.body;
+  const { sender, receiver, text, room } = req.body;
 
   try {
-    if (!sender || !receiver || !text) {
+    if (!sender || !receiver || !text || !room) {
       return res.status(400).json({ message: 'Sender, receiver, and message text are required.' });
     }
 

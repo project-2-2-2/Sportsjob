@@ -1,7 +1,64 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
+const EyeTracking = () => {
+  const leftEyeRef = useRef(null);
+  const rightEyeRef = useRef(null);
+
+  useEffect(() => {
+    const moveEyes = (e) => {
+      const { clientX, clientY } = e;
+      
+      [leftEyeRef, rightEyeRef].forEach((eyeRef) => {
+        if (eyeRef.current) {
+          const eye = eyeRef.current.getBoundingClientRect();
+          const eyeX = eye.left + eye.width / 2;
+          const eyeY = eye.top + eye.height / 2;
+
+          const deltaX = clientX - eyeX;
+          const deltaY = clientY - eyeY;
+          const angle = Math.atan2(deltaY, deltaX);
+
+          const maxOffset = 8; // Maximum movement range
+          const moveX = Math.cos(angle) * maxOffset;
+          const moveY = Math.sin(angle) * maxOffset;
+
+          eyeRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+      });
+    };
+
+    document.addEventListener("mousemove", moveEyes);
+    return () => document.removeEventListener("mousemove", moveEyes);
+  }, []);
+
+  return (
+    <div className="flex justify-center items-center h-screen bg-gray-900">
+      <div className="relative">
+        {/* Face Image */}
+        <img
+          src="/logo.svg" // Replace with your face image
+          alt="Face"
+          className="w-64 h-64"
+        />
+        
+        {/* Eyes */}
+        <div
+          ref={leftEyeRef}
+          className="absolute w-8 h-8 bg-white rounded-full top-[40%] left-[35%] transition-transform"
+        />
+        <div
+          ref={rightEyeRef}
+          className="absolute w-8 h-8 bg-white rounded-full top-[40%] right-[35%] transition-transform"
+        />
+      </div>
+    </div>
+  );
+};
+
+ 
 const LandingPage = ({ authUser }) => {
   const navigate = useNavigate();
 
@@ -15,8 +72,10 @@ const LandingPage = ({ authUser }) => {
 
   return (
 
-    <div className="min-h-screen bg-base-100"> 
-    <main className='max-w-7xl mx-auto px-4 py-6'> 
+    <div className="min-h-screen bg-base-100">
+          <EyeTracking/> 
+ 
+     <main className='max-w-7xl mx-auto px-4 py-6'> 
     <div className="relative w-full h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-600">
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -85,7 +144,7 @@ const LandingPage = ({ authUser }) => {
 
     </div>
     <footer className="mt-12 text-sm text-gray-500">
-     © 2024 sriman. All rights reserved.
+     © 2024 sriman akshat. All rights reserved.
    </footer>
     </div>
  

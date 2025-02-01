@@ -14,7 +14,7 @@ import userRoutes from "./routes/user.route.js";
 
 import cors from "cors";
 
- dotenv.config();
+dotenv.config();
 const app=express();
 const PORT=process.env.PORT || 5000;
 app.use(express.json({limit:"5mb"}));
@@ -40,7 +40,25 @@ const io = new Server(server, {
     },
   });
 
-app.listen(PORT,()=> {
-    console.log(`server running on port ${PORT}`);
+  io.on("connection", (socket) => {
+    console.log("New client connected");
+
+    socket.on("joinRoom", (chatId) => {
+        socket.join(chatId);
+        console.log(`Chat ${chatId} opened!`);
+    });
+
+    socket.on("sendMessage", (message) => {
+        const { sender, receiver, text, room } = message;
+        io.to(room).emit("getMessage", message);
+    });
+
+    socket.on("disconnect", () => {
+        console.log("Client disconnected");
+    });
+});
+
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
     connectDB();
-}); 
+});

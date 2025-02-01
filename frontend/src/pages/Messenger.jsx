@@ -19,6 +19,7 @@ const Messenger = ({ user }) => {
       socket.current.emit("joinRoom", chatId);
   
       socket.current.on("getMessage", (message) => {
+        console.log(message);
         setMessages((prev) => [...prev, { ...message, sent: message.sender === userId }]);
       });
   
@@ -48,8 +49,7 @@ const Messenger = ({ user }) => {
   const sendMessage = async () => {
     if (!newMessage.trim() || !receiverId) return;
 
-    const message = { sender: userId, receiver: receiverId, text: newMessage };
-    setMessages((prev) => [...prev, { ...message}]);
+    const message = { sender: userId, receiver: receiverId, text: newMessage, room: chatId };
     socket.current.emit("sendMessage", message);
 
     try {
@@ -60,6 +60,11 @@ const Messenger = ({ user }) => {
 
     setNewMessage("");
   };
+
+  const messagesEndRef = useRef(null);
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className="messenger">
@@ -82,6 +87,7 @@ const Messenger = ({ user }) => {
             value={newMessage}
           />
           <button className="chatSubmitButton" onClick={sendMessage}>Send</button>
+          <div ref={messagesEndRef} />
         </div>
       </div>
     </div>
