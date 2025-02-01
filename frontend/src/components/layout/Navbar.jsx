@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import { Bell,Tally4 , Home, LogOut, User, Users,MessageSquareDiff,Bot  } from "lucide-react";
 import { useTheme } from "../../../contexts/theme";
 import { RiMoonFill, RiSunFill } from "@remixicon/react";
 import './button.css'
@@ -40,7 +40,7 @@ const Navbar = () => {
 					<div className='flex items-center space-x-4'>
 						<Link to='/'>
 
-							<img className='h-11 rounded' src='logo.svg' alt='LinkedIn' />
+							<img className='h-11 rounded' src='logo.svg' />
             <span id='colo'>sports is great</span>
                     	</Link>
 						
@@ -52,7 +52,17 @@ const Navbar = () => {
 									<Home size={20} />
 									<span className='text-xs hidden md:block'>Ground</span>
 								</Link>
-								<Link to='/network' className='text-neutral flex flex-col items-center relative'>
+								<Link to='/askai' className='text-neutral flex flex-col items-center relative'>
+									<Bot  size={20} />
+									<span className='text-xs hidden md:block'>askai</span>
+									 
+								</Link>
+								<Link to='/livecricket' className='text-neutral flex flex-col items-center relative'>
+									<Tally4  size={20} />
+									<span className='text-xs hidden md:block'>cricketscore</span>
+									 
+								</Link>
+								<Link to='/clubsplayers' className='text-neutral flex flex-col items-center relative'>
 									<Users size={20} />
 									<span className='text-xs hidden md:block'>Team and collab</span>
 									{unreadConnectionRequestsCount > 0 && (
@@ -64,7 +74,12 @@ const Navbar = () => {
 										</span>
 									)}
 								</Link>
-								
+								<Link to='/chatapp' className='text-neutral flex flex-col items-center relative'>
+									<MessageSquareDiff  size={20} />
+									<span className='text-xs hidden md:block'>Chatapp</span>
+									 
+								</Link>
+
 								<Link to='/notifications' className='text-neutral flex flex-col items-center relative'>
 									<Bell size={20} />
 									<span className='text-xs hidden md:block'>Unplayed</span>

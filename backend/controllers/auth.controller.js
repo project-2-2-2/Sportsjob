@@ -48,18 +48,21 @@ res.status(201).json({ message: "User registered successfully" });
 
 
 const profileUrl =process.env.CLIENT_URL+ "/profile/" + user.username;
-     }
-/*try {
+}
+/*
+try {
     await sendWelcomeEmail(user.email, user.name, profileUrl);
 } catch (emailError) {
- console.error("Error sending welcome Email", emailError);
+console.error("Error sending welcome Email", emailError);
 }
-     }
-*/
-catch(error){
+*/ 
+     
+
+	 catch(error){
     console.log("Error in signup",error.message);
     res.status(500).json({ message: "Internal server error" });
 }
+
 };
 
 export const login=async(req,res)=>{

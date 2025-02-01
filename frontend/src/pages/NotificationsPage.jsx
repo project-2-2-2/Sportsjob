@@ -81,7 +81,7 @@ const NotificationsPage = () => {
 
 		return (
 			<Link
-				to={`/post/${relatedPost._id}`}
+				to={`/Postt/${relatedPost._id}`}
 				className='mt-2 p-2 bg-gray-50 rounded-md flex items-center space-x-2 hover:bg-gray-100 transition-colors'
 			>
 				{relatedPost.image && (
