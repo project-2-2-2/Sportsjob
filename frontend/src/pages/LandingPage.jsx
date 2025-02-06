@@ -141,8 +141,9 @@ const LandingPage = ({ authUser }) => {
  
 
  
-
+     qw9parsaoaijzd
     </div>
+
     <footer className="mt-12 text-sm text-gray-500">
      © 2024 sriman akshat. All rights reserved.
    </footer>

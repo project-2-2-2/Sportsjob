@@ -1,31 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { getSeriesList } from './API';
-
+import axios from "axios";
 const Askai = () => {
-  const [series, setSeries] = useState([]);
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+   const API_KEY = "42b5fb2d-c4bb-4a0c-bf25-f1564ce0e623";
+  const API_URL = `https://cricapi.com/api/matches?apikey=42b5fb2d-c4bb-4a0c-bf25-f1564ce0e623`;
 
   useEffect(() => {
-    const fetchSeries = async () => {
-      const data = await getSeriesList();
-      if (data && data.data) {
-        setSeries(data.data);
+    const fetchMatches = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setMatches(response.data.matches);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
       }
     };
-    fetchSeries();
-  }, []);
+
+    fetchMatches();
+  }, [API_URL]);
+
+  if (loading) {
+    return <div>Loading live scores...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
-    <div>
-      <h2>Series List</h2>
-      {series.map((s) => (
-        <div key={s.id} style={{ marginBottom: '10px', padding: '10px', border: '1px solid #ccc' }}>
-          <h3>{s.name}</h3>
-          <p>Start Date: {s.startDate}</p>
-          <p>End Date: {s.endDate}</p>
-        </div>
-      ))}
+    <div className="App">
+      <h1>Live Cricket Scores</h1>
+      <div className="matches">
+        {matches.map((match) => (
+          <div key={match.unique_id} className="match">
+            <h2>
+              {match["team-1"]} vs {match["team-2"]}
+            </h2>
+            <p>Match Type: {match.type}</p>
+            <p>Status: {match.matchStarted ? "In Progress" : "Not Started"}</p>
+            {match.matchStarted && (
+              <p>
+                Score: {match.score || "Score not available"}
+              </p>
+            )}
+            <hr />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
-
 export default Askai;
