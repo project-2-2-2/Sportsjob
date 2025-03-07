@@ -41,20 +41,13 @@ const io = new Server(server, {
   });
 
   io.on("connection", (socket) => {
-    console.log("New client connected");
-
     socket.on("joinRoom", (chatId) => {
         socket.join(chatId);
-        console.log(`Chat ${chatId} opened!`);
     });
 
     socket.on("sendMessage", (message) => {
         const { sender, receiver, text, room } = message;
         io.to(room).emit("getMessage", message);
-    });
-
-    socket.on("disconnect", () => {
-        console.log("Client disconnected");
     });
 });
 

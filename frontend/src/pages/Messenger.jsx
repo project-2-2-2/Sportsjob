@@ -64,14 +64,12 @@ const Messenger = ({ user }) => {
   return (
 
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
-      {/* Header Section */}
       <div className="bg-gradient-to-r from-[#AF45ED] to-[#ff9a8b] text-white p-4 rounded-t-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center">
           Chat with {receiverId ? receiverId : "Loading..."}
         </h2>
       </div>
 
-      {/* Message List Section */}
       <div className="flex-1 bg-white overflow-y-auto p-4 space-y-4 rounded-lg shadow-md mt-4">
         {messages.map((msg, index) => (
           <div
@@ -91,7 +89,6 @@ const Messenger = ({ user }) => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Message Input Section */}
       <div className="flex items-center space-x-4 mt-4 px-4 pb-4">
         <textarea
           className="flex-1 p-4 bg-[#f5f7fa] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#D7A2F6]"

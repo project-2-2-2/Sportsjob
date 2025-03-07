@@ -10,7 +10,8 @@ const MessageHome = ({ user, onSelectChat }) => {
     const fetchChats = async () => {
       try {
         const { data } = await axios.get(`http://localhost:5000/api/v2/chats/${userId}`);
-        setChats(data);
+        const filteredChats = data.filter(chat => chat.messages.length > 0);
+        setChats(filteredChats);
       } catch (error) {
         console.error("Error fetching chats", error);
       }
@@ -19,14 +20,12 @@ const MessageHome = ({ user, onSelectChat }) => {
   }, [userId]);
 
   return (
-
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
-      {/* Header Section */}
+
       <div className="bg-gradient-to-r from-[#AF45ED] to-[#ff9a8b] text-white py-4 px-6 rounded-t-lg flex items-center justify-between">
         <h2 className="text-2xl font-semibold">Messages</h2>
       </div>
 
-      {/* Chat List */}
       <div className="p-6">
         {chats.length === 0 ? (
           <div className="flex justify-center items-center h-32 text-gray-500">
@@ -62,7 +61,7 @@ const MessageHome = ({ user, onSelectChat }) => {
                     </div>
                   </div>
                   <div className="flex flex-col items-end w-full">
-                    {/* Timestamp */}
+
                     <span className="text-xs text-[#9e9e9e]">
                       {dayjs(chat.messages[chat.messages.length - 1]?.timestamp).format("h:mm A")}
                     </span>

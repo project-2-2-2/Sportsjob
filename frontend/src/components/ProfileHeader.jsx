@@ -1,11 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
 
-import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
+import { Camera, Clock, MapPin, UserCheck, UserPlus, X, MessageCircle } from "lucide-react";
 
 const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
+	const navigate = useNavigate();
+
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedData, setEditedData] = useState({});
 	const queryClient = useQueryClient();
@@ -56,6 +59,19 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 		},
 	});
 
+	const { mutate: openChat } = useMutation({
+		mutationFn: async () => {
+			const response = await axiosInstance.post(`/chats/open`, { userId: userData._id });
+			return response.data;
+		},
+		onSuccess: (data) => {
+			navigate(`/chats/${data.chatId}/${data.receiverId}`);
+		},
+		onError: (error) => {
+			toast.error(error.response?.data?.message || "Could not open chat");
+		},
+	});
+
 	const { mutate: removeConnection } = useMutation({
 		mutationFn: (userId) => axiosInstance.delete(`/connections/${userId}`),
 		onSuccess: () => {
@@ -91,6 +107,15 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							<X size={20} className='mr-2' />
 							Remove Connection
 						</button>
+						{isConnected && (
+							<button
+								className= {`${baseClass} bg-blue-500 hover:bg-blue-600 text-sm`}
+								onClick={() => openChat()}
+							>
+								<MessageCircle size={20} className='mr-2'/>
+								Message
+							</button>
+						)}
 					</div>
 				);
 
