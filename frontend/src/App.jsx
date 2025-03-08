@@ -2,7 +2,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
- import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage";
 
 import LandingPage from "./pages/LandingPage";
 import PostPage from "./pages/PostPage";
@@ -27,7 +27,7 @@ function App() {
 	const handleSelectChat = (chatId, receiverId) => {
 		navigate(`chats/${chatId}/${receiverId}`);
 	};
-	
+
 	const { data: authUser, isLoading } = useQuery({
 		queryKey: ["authUser"],
 		queryFn: async () => {
@@ -42,26 +42,26 @@ function App() {
 			}
 		},
 	});
-	
+
 	if (isLoading) return null;
 
 	return (
 		<Layout>
 
 			<Routes>
-			<Route path="/" element={!authUser ? <LandingPage /> : <Navigate to="/home" />} />
-			<Route path="/chatapp" element = {authUser ? <MessageHome user = {authUser} onSelectChat={handleSelectChat} /> : <Navigate to="/home" />} />
-			<Route path="/chats/:chatId/:receiverId" element={<Messenger user= {authUser} />} />
-			<Route path='/home' element={authUser ? <HomePage /> : <Navigate to={"/login"} />} />
+				<Route path="/" element={!authUser ? <LandingPage /> : <Navigate to="/home" />} />
+				<Route path="/chatapp" element={authUser ? <MessageHome user={authUser} onSelectChat={handleSelectChat} /> : <Navigate to="/home" />} />
+				<Route path="/chats/:chatId/:receiverId" element={<Messenger user={authUser} />} />
+				<Route path='/home' element={authUser ? <HomePage /> : <Navigate to={"/login"} />} />
 				<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to={"/"} />} />
 				<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to={"/"} />} />
-				<Route path='/notifications' element={authUser?<NotificationsPage />:<Navigate to={"/login"}/>}/> 
-				<Route path='/clubsplayers' element={authUser?<Clubs />:<Navigate to={"/login"}/>}/> 
-				<Route path='/postt/:clientid' element={authUser?<PostPage />:<Navigate to={"/login"}/>}/> 
-				<Route path='/profile/:username' element={authUser?<ProfilePage/>:<Navigate to={"/login"}/>}/> 
-				<Route path='/livecricket' element={authUser?<Askai/>:<Navigate to={"/login"}/>}/>
-				<Route path='/askai' element={authUser?<Please/>:<Navigate to={"/login"}/>}/>
-  			</Routes>
+				<Route path='/notifications' element={authUser ? <NotificationsPage /> : <Navigate to={"/login"} />} />
+				<Route path='/clubsplayers' element={authUser ? <Clubs /> : <Navigate to={"/login"} />} />
+				<Route path='/postt/:clientid' element={authUser ? <PostPage /> : <Navigate to={"/login"} />} />
+				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to={"/login"} />} />
+				<Route path='/livecricket' element={authUser ? <Askai /> : <Navigate to={"/login"} />} />
+				<Route path='/askai' element={authUser ? <Please /> : <Navigate to={"/login"} />} />
+			</Routes>
 			<Toaster />
 		</Layout>
 	);

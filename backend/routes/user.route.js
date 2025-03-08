@@ -5,7 +5,7 @@ import { getSuggestedConnections, getPublicProfile, updateProfile } from "../con
 const router = express.Router();
 
 router.get("/suggestions", protectRoute, getSuggestedConnections);
-router.get("/:username", protectRoute, getPublicProfile);
+router.get("/:username", getPublicProfile);
 router.put("/profile",protectRoute,updateProfile)
 
 export default router;

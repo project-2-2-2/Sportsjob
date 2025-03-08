@@ -106,7 +106,7 @@ export const openChat = async (req, res) => {
     }
     res.json({ chatId: chat._id, receiverUsername: receiverUser.username });
   } catch (error) {
-    console.error("❌ Error in openChat:", error);
+    console.error("Error in openChat:", error);
     res.status(500).json({ message: "Error opening chat", error });
   }
 };

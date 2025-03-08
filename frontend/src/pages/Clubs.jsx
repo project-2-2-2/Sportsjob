@@ -24,7 +24,7 @@ const Clubs = () => {
 				<Sidebar user={user} />
 			</div>
 			<div className='col-span-1 lg:col-span-3'>
-				<div className='bg-indigo-900 rounded-lg shadow p-6 mb-6'>
+				<div className='rounded-lg shadow p-6 mb-6'>
 					<h1 className='text-2xl font-bold mb-6'>My Clubs/Players</h1>
 
 					{connectionRequests?.data?.length > 0 ? (
