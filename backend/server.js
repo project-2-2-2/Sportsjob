@@ -13,7 +13,8 @@ import userRoutes from "./routes/user.route.js";
 import { OpenAI } from 'openai';
 import chatairoutes from "./routes/chatai.route.js";
 import cors from "cors";
- 
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
 dotenv.config();
 const app=express();
 const PORT=process.env.PORT || 5000;
@@ -32,6 +33,7 @@ app.use("/api/v2/notifications",notificationRoutes);
 app.use("/api/v2/connections",connectionRoutes);
 
 const server = http.createServer(app);
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 const io = new Server(server, {
     cors: {
@@ -51,6 +53,21 @@ const io = new Server(server, {
     });
 });
 
+app.post("/generate", async (req, res) => {
+    const { prompt } = req.body;
+    try {
+      // For text-only input, use the gemini-pro model
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      res.send(text);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Failed to generate content");
+    }
+  });
   
   
 server.listen(PORT, () => {

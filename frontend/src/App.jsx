@@ -14,7 +14,7 @@ import Clubs from "./pages/Clubs"
 import Askai from "./pages/askai";
 import { axiosInstance } from "./lib/axios";
 import NotificationsPage from "./pages/NotificationsPage";
-
+import EAsports from "./pages/EAsports";
 
 
 import Messenger from "./pages/Messenger";
@@ -61,6 +61,7 @@ function App() {
 				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to={"/login"} />} />
 				<Route path='/livecricket' element={authUser ? <Askai /> : <Navigate to={"/login"} />} />
 				<Route path='/askai' element={authUser ? <Please /> : <Navigate to={"/login"} />} />
+				<Route path ='/esports' element={authUser ? <EAsports /> : <Navigate to={"/login"} />} />
 			</Routes>
 			<Toaster />
 		</Layout>
